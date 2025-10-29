@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <div className='w-[500px] m-auto text-lg text-center mt-14'>
-
+        <h1>Details</h1>
         <form className='w-[400px] m-auto'>
             <div className='mt-3'>
                 <label htmlFor='userName' className='p-5 '>UserName:</label>
@@ -44,7 +44,7 @@ const App = () => {
             <button onClick={(e)=>submitHandler(e)}> Submit</button>
         </form>
 
-
+ 
         {
             display && <div className='w-[400px] m-auto mt-6'>
                 <ul>

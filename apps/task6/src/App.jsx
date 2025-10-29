@@ -12,8 +12,9 @@ const App = () => {
         }, 1000)
 
         let timeOutID = setTimeout(() => {
+            setSec(0);
             clearInterval(timerID.current);
-        }, 11000);
+        }, 10000);
 
         return () => {
             clearTimeout(timeOutID);
@@ -27,9 +28,9 @@ const App = () => {
             <h1 className='my-5'>No. of Clicks until timer expires</h1>
 
             <div>
-                <div>{count}</div>
+                <div data-testid="count-div">{count}</div>
 
-                <div className='my-4'> 
+                <div className='my-4 ' data-testid="Timer"> 
                     Time Left: {sec} seconds
                 </div>
             </div>

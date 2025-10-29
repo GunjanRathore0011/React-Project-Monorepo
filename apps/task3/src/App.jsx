@@ -36,7 +36,7 @@ const App = () => {
       </div>
 
       <div className="cities">
-        <ul>
+        <ul >
 
           {cities.map(( city,idx) => {
             return (

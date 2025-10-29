@@ -11,6 +11,8 @@
     "dev:task5": "npm run dev --workspace=task5",
     "dev:task6": "npm run dev --workspace=task6",
     "dev:task7": "npm run dev --workspace=task7",
+    "dev:task8": "npm run dev --workspace=task8",
+    "dev:task9": "npm run dev --workspace=task9",
     "build:task1": "npm run build --workspace=task1",
     "build:task2": "npm run build --workspace=task2",
     "build:task3": "npm run build --workspace=task3",
@@ -18,9 +20,12 @@
     "build:task5": "npm run build --workspace=task5",
     "build:task6": "npm run build --workspace=task6",
     "build:task7": "npm run build --workspace=task7",
+    "build:task8": "npm run build --workspace=task8",
+    "build:task9": "npm run build --workspace=task9",
     "dev:all": "npm run dev --workspaces",
     "build:all": "npm run build --workspaces",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
