@@ -40,8 +40,8 @@ const App = () => {
 
           {cities.map(( city,idx) => {
             return (
-              <div className='flex gap-7 justify-center mb-3'>
-                <li key={idx} className="">
+              <div key={idx} className='flex gap-7 justify-center mb-3'>
+                <li  className="">
                   {city}
                 </li>
                 <span className="bg-red-200 px-3 cursor-pointer" onClick={()=>removeCities(idx)} >X</span>
