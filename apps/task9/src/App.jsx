@@ -1,43 +1,34 @@
-// import React, { useState, useCallback, memo } from "react";
-// import ChildComponent from "./components/ChildComponent";
-
-
-// const App = () => {
-//   console.log("Parent rendered");
-
-//   const [count, setCount] = useState(0);
-//   const [text, setText] = useState("");
-
-//   const handleIncrement = useCallback(() => {
-//     setCount((prev) => prev + 1);
-//   }, [text]); 
-
-//   return (
-//     <div style={{ textAlign: "center", marginTop: "50px" }}>
-//       <h2>Count: {count}</h2>
-//       <ChildComponent onClick={handleIncrement} />
-
-//       <input
-//         placeholder="Type something..."
-//         value={text}
-//         onChange={(e) => setText(e.target.value)}
-//         style={{ marginTop: "10px", padding: "5px" }}
-//       />
-//     </div>
-//   );
-// };
-
-// export default App;
-
-
-import React from 'react'
-import ComponentChanges from './components/ComponentChanges'
+import React, { useCallback, useState } from 'react'
+import Child from './components/Child';
 
 const App = () => {
-  return (
-    <div>
+  console.log("Parent Rendering...");
 
-      <ComponentChanges></ComponentChanges>
+  const [message, setMessage] = useState("Good Morning!");
+  const [val, setVal] = useState("");
+
+  const greet = useCallback(() => {
+    console.log("Hello");
+    return "Hello!!"
+  },[])
+  // console.log(greet);
+
+  function clickHandler() {
+    setMessage(val);
+  }
+
+  return (
+    <div className='mt-20 flex  text-lg flex-col justify-center items-center '>
+
+      <div className='my-12'>
+
+        <input placeholder='Enter the message' className='border-2 border-gray-400 mr-5' onChange={(e) => { setVal(e.target.value) }}></input>
+        <button className='bg-gray-300 rounded cursor-pointer p-1.5' onClick={clickHandler}>Change Message</button>
+
+      </div>
+
+      <Child message={message} greet={greet}></Child>
+
     </div>
   )
 }
