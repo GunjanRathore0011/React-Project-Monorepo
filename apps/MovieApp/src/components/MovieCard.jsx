@@ -14,7 +14,7 @@ const MovieCard = ({movie}) => {
     }
 
   return (
-    <div onClick={movieDetailHandler} className="flex flex-col text-white justify-between items-center bg-gray-700 h-[620px] w-[350px] p-5">
+    <div onClick={movieDetailHandler} className=" cursor-pointer flex flex-col text-white justify-between items-center bg-gray-700 h-[620px] w-[350px] p-5">
         <div className='flex flex-col gap-3 '>
           <img   className='h-[450px] w-auto' src={movie.Poster}></img>
           <h1>{movie.Title}</h1>
