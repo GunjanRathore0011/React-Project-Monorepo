@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import image from '../assets/image2.jpg'
+import { IoStarSharp } from "react-icons/io5";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [Details, setDetails] = useState({});
-  const [liked , setLiked]= useState(true);
+  const naviagate = useNavigate(Details);
+
     // const arr= Details.Genre.split(",");
   // console.log(Details.Genre)
 
@@ -37,7 +39,7 @@ const MovieDetails = () => {
         <div className=' my-13 flex gap-8 text-xl'>
           <span>{Details.Runtime} </span>
           <span>{Details.Year} </span>
-          <span>{Details.imdbRating} </span>
+          <span className='flex'>{Details.imdbRating} <IoStarSharp className="text-amber-300 mt-1" /> </span>
         </div>
 
         <div className='my-5'>
@@ -60,6 +62,12 @@ const MovieDetails = () => {
         <div className='my-5'>
           <h1 className='bg-gray-300 text-gray-700 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
           <p>{Details.Plot}</p>
+        </div>
+
+        <div className='bg-red-300 font-bold rounded-full px-3 py-2 text-gray-700 w-48 mt-10 cursor-pointer' 
+          onClick={()=>{naviagate(-1)}}
+        >
+          Back to All Movies
         </div>
       </div>
     </div>

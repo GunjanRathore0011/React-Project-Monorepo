@@ -22,6 +22,7 @@ const AllMovies = () => {
             if (response.data.Response === "True") setMovies(response.data.Search)
             else setMovies([]);
             setLoading(false);
+            setTerm("");
         }
         catch (e) {
             console.log(e);
@@ -38,8 +39,8 @@ const AllMovies = () => {
 
                 <div className='flex justify-between items-center text-lg py-5 px-7 bg-gray-700 text-white'>
                     <h1 className='text-2xl'>Movie App</h1>
-                    <div className='flex gap-4 items-center  py-2 px-3'>
-                        <input placeholder='Search Movies or Shows' className='px-2 py-1 border-amber-50  border' onChange={(e) => { setTerm(e.target.value) }}></input>
+                    <div className='flex gap-4 items-center  py-2 px-3 border-amber-50  border'>
+                        <input placeholder='Search Movies or Shows' className='px-2 py-1 ' value={term} onChange={(e) => { setTerm(e.target.value) }}></input>
                         <FaSearch className=' text-3xl cursor-pointer' onClick={() => { setSearchTerm(term) }} />
                     </div>
                     <FaRegUserCircle className='text-5xl' />
@@ -48,9 +49,13 @@ const AllMovies = () => {
                 <div className='min-h-screen bg-gray-800 p-7'>
 
                     {
-                        loading ? <> <div className='text-white text-5xl text-center mt-20'>Loading..</div></> : <>
+                        loading ? <>
+                            <div className="flex justify-center items-center min-h-screen">
+                                <span className="loader text-white font-extrabold text-7xl"></span>
+                            </div>
+                        </> : <>
                             <div className='flex text-white justify-between py-7'>
-                                <h1 className='text-2xl'>Movies</h1>
+                                <h1 className='text-3xl text-red-300 font-bold'>Movies:</h1>
                                 <select className='w-[150px]' id="" name="">
                                     <option className=' bg-gray-100 text-black' value="option1"> All</option>
                                 </select>

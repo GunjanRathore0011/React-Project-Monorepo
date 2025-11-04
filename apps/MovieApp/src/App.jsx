@@ -4,16 +4,17 @@ import AllMovies from './pages/AllMovies';
 import MovieDetails from './pages/MovieDetails';
 import { Route, Routes } from 'react-router-dom';
 
+import { ToastContainer } from 'react-toastify';
 const App = () => {
 
   return (
     <>
-    
+      <ToastContainer />
       <Routes>
-        <Route path="/" element={<AllMovies/>}/>
-        <Route path="/movie/:id" element={<MovieDetails/>}/>
+        <Route path="/" element={<AllMovies />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
       </Routes>
-    
+
     </>
   )
 }
