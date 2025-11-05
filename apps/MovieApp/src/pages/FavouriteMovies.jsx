@@ -28,7 +28,7 @@ const FavouriteMovies = () => {
         <>
             <div>
 
-                <div className='flex flex-wrap justify-between items-center text-lg py-5 px-7 bg-gray-700 text-white'>
+                <div className='flex flex-wrap justify-between items-center py-4 px-15 bg-[#1E2A38] text-white shadow-md sticky top-0 z-50'>
                     <h1 className='text-2xl'>Movie App</h1>
                     <div className='flex text-2xl gap-4 items-center  py-2 px-3'>
                         <p>Favourite Movies</p>
