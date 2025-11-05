@@ -8,16 +8,18 @@ const MovieDetails = () => {
   const { id } = useParams();
   const [Details, setDetails] = useState({});
   const naviagate = useNavigate(Details);
-
-    // const arr= Details.Genre.split(",");
+  // const arr= Details.Genre.split(",");
   // console.log(Details.Genre)
 
   console.log("imdbId", id)
   const apiCall = async () => {
     try {
-      const response = await axios.get(`http://www.omdbapi.com/?i=${id}&apikey=5d0be93f`);
-      // console.log(response.data);
-      setDetails(response.data);
+      const response = await axios.get(`https://www.omdbapi.com/?i=${id}&apikey=5d0be93f`);
+      console.log(response.data);
+      // setDetails(response.data);
+      const genreArray = response.data.Genre ? response.data.Genre.split(", ").map(g => g.trim()) : [];
+      const actorArray = response.data.Actors ? response.data.Actors.split(", ").map(a => a.trim()) : [];
+      setDetails({ ...response.data, Genre: genreArray, Actors: actorArray });
     } catch (e) {
       console.log(e);
     }
@@ -26,6 +28,7 @@ const MovieDetails = () => {
   useEffect(() => {
     apiCall();
   }, [])
+  console.log(Details);
 
   return (
     <div className='relative bg-black opacity-100'>
@@ -43,29 +46,39 @@ const MovieDetails = () => {
         </div>
 
         <div className='my-5'>
-          <h1 className='bg-gray-300 text-gray-700 flex justify-center rounded-full w-20 mb-1'>GENRES</h1>
+          <h1 className=' text-gray-300 flex justify-center rounded-full w-20 mb-1'>GENRES</h1>
           <span>
-            {Details.Genre}
+            {/* {Details.Genre} */}
           </span>
+          <div className='flex gap-2'>
+            {Details.Genre?.map((g, i) => (
+              <span key={i} className='bg-gray-400 rounded-full px-2 py-1 text-gray-800'>{g}</span>
+            ))}
+          </div>
         </div>
 
         <div className='my-5'>
-          <h1 className='bg-gray-300 text-gray-700 flex justify-center rounded-full w-26 mb-1'>DIRECTORS</h1>
-          <span>{Details.Director}</span>
+          <h1 className=' text-lg text-gray-300 flex justify-center rounded-full w-26 mb-1'>DIRECTORS</h1>
+          <span className='bg-gray-400 rounded-full px-2 py-1 text-gray-800'>{Details.Director}</span>
         </div>
 
         <div className='my-5'>
-          <h1 className='bg-gray-300 text-gray-700 flex justify-center rounded-full w-15 mb-1'>CAST</h1>
-          <span>{Details.Actors}</span>
+          <h1 className=' text-lg text-gray-300 flex justify-center rounded-full w-15 mb-1'>CAST</h1>
+          {/* <span>{Details.Actors}</span> */}
+          <div className='flex gap-2'>
+            {Details.Actors?.map((a, i) => (
+              <span key={i} className='bg-gray-400 rounded-full px-2 py-1 text-gray-800'>{a}</span>
+            ))}
+          </div>
         </div>
 
         <div className='my-5'>
-          <h1 className='bg-gray-300 text-gray-700 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
+          <h1 className='text-lg text-gray-300 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
           <p>{Details.Plot}</p>
         </div>
 
-        <div className='bg-red-300 font-bold rounded-full px-3 py-2 text-gray-700 w-48 mt-10 cursor-pointer' 
-          onClick={()=>{naviagate(-1)}}
+        <div className='bg-red-300 font-bold rounded-full px-3 py-2 text-gray-700 w-48 mt-10 cursor-pointer'
+          onClick={() => { naviagate(-1) }}
         >
           Back to All Movies
         </div>

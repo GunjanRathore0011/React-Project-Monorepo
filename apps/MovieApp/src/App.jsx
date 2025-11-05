@@ -1,8 +1,11 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
-import AllMovies from './pages/AllMovies';
-import MovieDetails from './pages/MovieDetails';
+import React, { lazy, Suspense, useEffect } from 'react'
+// import AllMovies from './pages/AllMovies';
+// import MovieDetails from './pages/MovieDetails';
 import { Route, Routes } from 'react-router-dom';
+
+const AllMovies = lazy(() => import('./pages/AllMovies'))
+const MovieDetails = lazy(() => import('./pages/MovieDetails'))
 
 import { ToastContainer } from 'react-toastify';
 const App = () => {
@@ -11,8 +14,14 @@ const App = () => {
     <>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<AllMovies />} />
-        <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/" element={<Suspense fallback={<div>Loading...</div>}>
+
+          <AllMovies />
+
+        </Suspense>} />
+        <Route path="/movie/:id" element={<Suspense fallback={<div>Loading..</div>}> 
+          <MovieDetails />
+        </Suspense>} />
       </Routes>
 
     </>

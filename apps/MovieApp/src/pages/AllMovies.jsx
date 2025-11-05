@@ -16,7 +16,7 @@ const AllMovies = () => {
     const apiCall = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://www.omdbapi.com/?apikey=5d0be93f&s=${searchTerm}`);
+            const response = await axios.get(`https://www.omdbapi.com/?apikey=5d0be93f&s=${searchTerm}`);
             console.log(response)
             // console.log(response.data.Search);
             if (response.data.Response === "True") setMovies(response.data.Search)
