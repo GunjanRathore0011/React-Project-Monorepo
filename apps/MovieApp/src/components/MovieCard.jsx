@@ -1,30 +1,47 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
 import { toast } from 'react-toastify';
 
-
-
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie ,like=false ,onUnlike}) => {
   // console.log(movie)
   // console.log(movie.Title, movie.Year, movie.Poster)
   const naviagate = useNavigate();
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(like);
 
   const movieDetailHandler = () => {
     naviagate(`/movie/${movie.imdbID}`)
   }
   
-  const likeHandler = () => {
-    if (liked) {
-      setLiked(false);
-      toast("Unliked")
-    } else {
-      setLiked(true);
-      toast("Liked")
-    }
+const likeHandler = () => {
+  let likedMovies = JSON.parse(localStorage.getItem('liked'));
+
+  if (!Array.isArray(likedMovies)) {
+    likedMovies = [];
   }
+
+  if (liked) {
+    const updatedMovies = likedMovies.filter(
+      (item) => item.imdbID !== movie.imdbID
+    );
+    localStorage.setItem('liked', JSON.stringify(updatedMovies));
+    if(onUnlike) onUnlike(movie.imdbID);
+    setLiked(false);
+    toast("Unliked");
+  } else {
+    
+      likedMovies.push(movie);
+      localStorage.setItem('liked', JSON.stringify(likedMovies));
+    
+    setLiked(true);
+    toast("Liked");
+  }
+};
+
+
+
+
 
   return (
     <div className=" cursor-pointer flex flex-col text-white justify-between items-center bg-gray-700 h-[620px] w-[350px] p-5">

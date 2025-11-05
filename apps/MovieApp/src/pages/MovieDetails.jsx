@@ -11,7 +11,7 @@ const MovieDetails = () => {
   // const arr= Details.Genre.split(",");
   // console.log(Details.Genre)
 
-  console.log("imdbId", id)
+  // console.log("imdbId", id)
   const apiCall = async () => {
     try {
       const response = await axios.get(`https://www.omdbapi.com/?i=${id}&apikey=5d0be93f`);
@@ -28,25 +28,25 @@ const MovieDetails = () => {
   useEffect(() => {
     apiCall();
   }, [])
-  console.log(Details);
+  // console.log(Details);
 
   return (
-    <div className='relative bg-black opacity-100'>
-      <img className='absolute  min-h-screen w-full' src={image}></img>
+    <div className='relative flex flex-col md:flex-row flex-wrap bg-black opacity-100'>
+      <img className='absolute  min-h-screen w-full ' src={image}></img>
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
 
-      <div className='absolute z-10 inset-0 text-gray-200 text-lg  ml-32 mt-50 w-[600px]'>
+      <div className='absolute z-10 inset-0 text-gray-200 text-lg  ml-32  xs:ml-2 mt-50 w-[600px] xs:text-sm s:text-sm '>
         <h1 className='text-5xl text-red-300 font-extrabold'>{Details.Title}</h1>
 
-        <div className=' my-13 flex gap-8 text-xl'>
+        <div className=' my-13 flex  flex-wrap gap-8 text-xl '>
           <span>{Details.Runtime} </span>
           <span>{Details.Year} </span>
-          <span className='flex'>{Details.imdbRating} <IoStarSharp className="text-amber-300 mt-1" /> </span>
+          <span className='flex flex-wrap'>{Details.imdbRating} <IoStarSharp className="text-amber-300 mt-1" /> </span>
         </div>
 
         <div className='my-5'>
-          <h1 className=' text-gray-300 flex justify-center rounded-full w-20 mb-1'>GENRES</h1>
+          <h1 className=' text-gray-300 flex flex-wrap justify-center rounded-full w-20 mb-1'>GENRES</h1>
           <span>
             {/* {Details.Genre} */}
           </span>
@@ -73,7 +73,7 @@ const MovieDetails = () => {
         </div>
 
         <div className='my-5'>
-          <h1 className='text-lg text-gray-300 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
+          <h1 className='text-lg xs:text-sm sm:text-sm md:text-sm text-gray-300 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
           <p>{Details.Plot}</p>
         </div>
 

@@ -1,28 +1,34 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { CiSearch } from 'react-icons/ci';
-import { FaRegUserCircle, FaSearch } from 'react-icons/fa';
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { FaRegHeart, FaRegUserCircle, FaSearch } from 'react-icons/fa';
 import MovieCard from '../components/MovieCard';
-import MovieDetails from './MovieDetails';
+import { useDebounce } from '../hook/useDebounce';
+import { useNavigate } from 'react-router-dom';
+
 
 const AllMovies = () => {
 
     const [movies, setMovies] = useState([]);
-
-    const [searchTerm, setSearchTerm] = useState("Harry")
     const [term, setTerm] = useState("");
     const [loading, setLoading] = useState(false);
+    const [showDropdown,setShowDropdown] = useState(false);
 
-    const apiCall = async () => {
+    const [likeM, setLikeM]= useState(false);
+
+
+    const navigate= useNavigate();
+
+    const debouncedVal = useDebounce(term, 500);
+
+    const apiCall = async (debouncedVal) => {
         try {
             setLoading(true);
-            const response = await axios.get(`https://www.omdbapi.com/?apikey=5d0be93f&s=${searchTerm}`);
-            console.log(response)
+            const response = await axios.get(`https://www.omdbapi.com/?apikey=5d0be93f&s=${debouncedVal}`);
+            // console.log(response)
             // console.log(response.data.Search);
             if (response.data.Response === "True") setMovies(response.data.Search)
             else setMovies([]);
             setLoading(false);
-            setTerm("");
         }
         catch (e) {
             console.log(e);
@@ -30,20 +36,50 @@ const AllMovies = () => {
     }
 
     useEffect(() => {
-        apiCall();
-    }, [searchTerm])
+        if (debouncedVal) apiCall(debouncedVal);
+    }, [debouncedVal])
 
+
+    useEffect(()=>{
+    let likedMovies = JSON.parse(localStorage.getItem('liked'));
+        if(Array.isArray(likedMovies) && likedMovies.length>0) setLikeM(true);
+    },[])
     return (
         <>
             <div>
 
-                <div className='flex justify-between items-center text-lg py-5 px-7 bg-gray-700 text-white'>
+                <div className='flex flex-wrap justify-between items-center text-lg py-5 px-7 bg-gray-700 text-white'>
                     <h1 className='text-2xl'>Movie App</h1>
-                    <div className='flex gap-4 items-center  py-2 px-3 border-amber-50  border'>
+                    <div className='flex gap-4 items-center  py-2 px-3'>
                         <input placeholder='Search Movies or Shows' className='px-2 py-1 ' value={term} onChange={(e) => { setTerm(e.target.value) }}></input>
-                        <FaSearch className=' text-3xl cursor-pointer' onClick={() => { setSearchTerm(term) }} />
+                        <FaSearch className=' text-3xl cursor-pointer' onClick={() => { apiCall() }} />
                     </div>
-                    <FaRegUserCircle className='text-5xl' />
+                    <div className="relative">
+
+                        {
+                            likeM ? <FaRegHeart /> : <FaRegUserCircle
+                            className="text-5xl cursor-pointer"
+                            
+                            onClick={() => navigate('/favourite')}
+                        />
+                        }
+                        
+
+                        {/* {showDropdown && (
+                            <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg z-10">
+                                <button
+                                    onClick={() => {
+                                        navigate('/favourite');
+                                        setShowDropdown(false);
+                                    }}
+                                    className=" w-full text-left px-4 py-2 cursor-pointer hover:bg-gray-200"
+                                >
+                                    Liked
+                                </button>
+                            </div>
+                        )} */}
+                    </div>
+
                 </div>
 
                 <div className='min-h-screen bg-gray-800 p-7'>
@@ -61,12 +97,13 @@ const AllMovies = () => {
                                 </select>
                             </div>
                             <div className=' flex flex-wrap justify-center items-center gap-16 my-13'>
+                                
                                 {
                                     movies.length !== 0 ? <>
 
                                         {
                                             movies.map((movie, idx) => {
-                                                return <MovieCard key={idx} movie={movie}></MovieCard>
+                                                return <MovieCard key={idx} movie={movie} ></MovieCard>
                                             })
                                         }
 

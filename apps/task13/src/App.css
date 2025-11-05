@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+
+  const likeHandler = () => {
+    const likedMovies = JSON.parse(localStorage.getItem('liked')) || [];
+    console.log(likedMovies)
+    if (liked) {
+      const updatedMovies = likedMovies.filter(
+        (item) => item.imdbID !== movie.imdbID
+      );
+      localStorage.setItem('liked', JSON.stringify(updatedMovies));
+      setLiked(false);
+      toast("Unliked");
+    } else {
+      const alreadyLiked = likedMovies.some(
+        (item) => item.imdbID === movie.imdbID
+      );
+      if (!alreadyLiked) {
+        likedMovies.push(movie);
+        localStorage.setItem('liked', JSON.stringify(likedMovies));
+      }
+      setLiked(true);
+      toast("Liked");
+    }
+  };
