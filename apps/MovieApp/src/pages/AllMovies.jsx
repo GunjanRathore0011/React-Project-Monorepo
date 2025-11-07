@@ -64,7 +64,7 @@ const AllMovies = () => {
             />
           ) : (
             <FaRegUserCircle
-              className="cursor-pointer hover:text-pink-400 hover:scale-105 transition-transform"
+              className=""
               title="Profile / Favourites"
             />
           )}
