@@ -4,12 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../hook/useDebounce';
 import { useNavigate } from 'react-router-dom';
 import MovieCard from '../components/MovieCard';
+import { useSelector } from 'react-redux'
 
 const AllMovies = () => {
+
+  const likeM= useSelector((state)=>state.likes.likedMovies);
+  // console.log(likeM)
+
   const [movies, setMovies] = useState([]);
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState('Harry');
   const [loading, setLoading] = useState(false);
-  const [likeM, setLikeM] = useState(false);
 
   const navigate = useNavigate();
   const debouncedVal = useDebounce(term, 500);
@@ -31,11 +35,6 @@ const AllMovies = () => {
     if (debouncedVal) apiCall(debouncedVal);
   }, [debouncedVal]);
 
-  useEffect(() => {
-    const likedMovies = JSON.parse(localStorage.getItem('liked'));
-    if (Array.isArray(likedMovies) && likedMovies.length > 0) setLikeM(true);
-  }, []);
-
   return (
     <>
       <div className="flex flex-wrap justify-between items-center py-4 px-15 bg-[#1E2A38] text-white shadow-md sticky top-0 z-50">
@@ -44,10 +43,10 @@ const AllMovies = () => {
           MovieApp
         </h1>
 
-        <div className="flex items-center bg-[#2C3E50] rounded-full px-4 py-2 w-[40%] max-w-md shadow-sm">
+        <div className="flex flex-wrap items-center justify-between bg-[#2C3E50] rounded-full px-4 py-2 w-[40%] max-w-md shadow-sm overflow-hidden">
           <input
             placeholder="Search Movies or Shows"
-            className="bg-transparent flex-grow text-white placeholder-gray-400 outline-none"
+            className="bg-transparent  text-white placeholder-gray-400 outline-none"
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           />
@@ -57,7 +56,7 @@ const AllMovies = () => {
           />
         </div>
         <div className="flex items-center gap-6 text-3xl">
-          {likeM ? (
+          {likeM.length!==0 ? (
             <FaHeart
               className="text-pink-500 cursor-pointer hover:scale-110 transition-transform"
               title="Liked Movies"
@@ -67,7 +66,6 @@ const AllMovies = () => {
             <FaRegUserCircle
               className="cursor-pointer hover:text-pink-400 hover:scale-105 transition-transform"
               title="Profile / Favourites"
-              onClick={() => navigate('/favourite')}
             />
           )}
         </div>

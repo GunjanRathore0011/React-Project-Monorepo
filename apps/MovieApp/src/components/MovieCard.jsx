@@ -1,40 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { toast } from 'react-toastify';
+import { addLike, removeLike } from '../redux/likeSlice';
 
-const MovieCard = ({ movie ,like=false ,onUnlike}) => {
-  // console.log(movie)
-  // console.log(movie.Title, movie.Year, movie.Poster)
+const MovieCard = ({ movie }) => {
+  const favouriteM= useSelector((state)=>state.likes.likedMovies);
+
+  const isLiked = favouriteM.some((m) => m.imdbID === movie.imdbID);
+
   const naviagate = useNavigate();
-  const [liked, setLiked] = useState(like);
+  const dispatch = useDispatch();
 
   const movieDetailHandler = () => {
     naviagate(`/movie/${movie.imdbID}`)
   }
   
 const likeHandler = () => {
-  let likedMovies = JSON.parse(localStorage.getItem('liked'));
 
-  if (!Array.isArray(likedMovies)) {
-    likedMovies = [];
-  }
-
-  if (liked) {
-    const updatedMovies = likedMovies.filter(
-      (item) => item.imdbID !== movie.imdbID
-    );
-    localStorage.setItem('liked', JSON.stringify(updatedMovies));
-    if(onUnlike) onUnlike(movie.imdbID);
-    setLiked(false);
+  if (isLiked) {
+    dispatch(removeLike(movie));
     toast("Unliked");
   } else {
+      dispatch(addLike(movie))
     
-      likedMovies.push(movie);
-      localStorage.setItem('liked', JSON.stringify(likedMovies));
-    
-    setLiked(true);
     toast("Liked");
   }
 };
@@ -52,7 +43,7 @@ const likeHandler = () => {
       </div>
       <div className='w-full px-4 flex justify-between'>
         <h1>movie</h1>
-        <FaHeart onClick={likeHandler} className={`${liked ? "text-red-400" : "text-white"} text-2xl`} />
+        <FaHeart onClick={likeHandler} className={`${isLiked ? "text-red-400" : "text-white"} text-2xl`} />
       </div>
     </div>
   )

@@ -4,26 +4,26 @@ import { FaRegUserCircle, FaSearch } from 'react-icons/fa';
 import MovieCard from '../components/MovieCard';
 import { useDebounce } from '../hook/useDebounce';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 
 const FavouriteMovies = () => {
 
+    const favouriteM= useSelector((state)=>state.likes.likedMovies);
+    
+    // console.log(favouriteM )
+
     const [loading, setLoading] = useState(false);
-   const [favouriteM, setFavouriteM]= useState([]);
+    // const [favouriteM, setFavouriteM] = useState([]);
 
-    const navigate= useNavigate();
-
-    useEffect(()=>{
-        const fMovie= (localStorage.getItem('liked'));
-        setFavouriteM(JSON.parse(fMovie))
-    },[])
+    const navigate = useNavigate();
 
 
-    const handleUnlike=(id)=>{
-        const updated= favouriteM.filter((m)=>m.imdbID != id);
-        setFavouriteM(updated);
-        localStorage.setItem('liked', JSON.stringify(updated));
-    }
+    // const handleUnlike = (id) => {
+    //     const updated = favouriteM.filter((m) => m.imdbID != id);
+    //     setFavouriteM(updated);
+    //     localStorage.setItem('liked', JSON.stringify(updated));
+    // }
     return (
         <>
             <div>
@@ -33,7 +33,7 @@ const FavouriteMovies = () => {
                     <div className='flex text-2xl gap-4 items-center  py-2 px-3'>
                         <p>Favourite Movies</p>
                     </div>
-                    <button className='hover:underline cursor-pointer text-2xl underline mr-4' onClick={()=>{navigate("/")}}>Home</button>
+                    <button className='hover:underline cursor-pointer text-2xl underline mr-4' onClick={() => { navigate("/") }}>Home</button>
 
                 </div>
 
@@ -57,7 +57,7 @@ const FavouriteMovies = () => {
 
                                         {
                                             favouriteM.map((movie, idx) => {
-                                                return <MovieCard key={idx} movie={movie} like={true} onUnlike={handleUnlike}></MovieCard>
+                                                return <MovieCard key={idx} movie={movie} ></MovieCard>
                                             })
                                         }
 

@@ -36,7 +36,7 @@ const MovieDetails = () => {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
 
-      <div className='absolute z-10 inset-0 text-gray-200 text-lg  ml-32  xs:ml-2 mt-50 w-[600px] xs:text-sm s:text-sm '>
+      <div className='absolute z-10 inset-0 text-gray-200 text-md md:text-lg  md:ml-32 xs:ml-10 ml-5 mt-50 w-[600px] xs:text-sm s:text-sm '>
         <h1 className='text-5xl text-red-300 font-extrabold'>{Details.Title}</h1>
 
         <div className=' my-13 flex  flex-wrap gap-8 text-xl '>
@@ -46,38 +46,38 @@ const MovieDetails = () => {
         </div>
 
         <div className='my-5'>
-          <h1 className=' text-gray-300 flex flex-wrap justify-center rounded-full w-20 mb-1'>GENRES</h1>
+          <h1 className=' text-gray-300 text-xs sm:text-base md:text-lg flex flex-wrap justify-center rounded-full w-20 mb-1'>GENRES</h1>
           <span>
             {/* {Details.Genre} */}
           </span>
           <div className='flex gap-2'>
             {Details.Genre?.map((g, i) => (
-              <span key={i} className='bg-gray-400 rounded-full px-2 py-1 text-gray-800'>{g}</span>
+              <span key={i} className='text-xs sm:text-base md:text-lg bg-gray-400 rounded-full px-1 py-0.5 md:px-2 md:py-1 text-gray-800'>{g}</span>
             ))}
           </div>
         </div>
 
         <div className='my-5'>
-          <h1 className=' text-lg text-gray-300 flex justify-center rounded-full w-26 mb-1'>DIRECTORS</h1>
-          <span className='bg-gray-400 rounded-full px-2 py-1 text-gray-800'>{Details.Director}</span>
+          <h1 className=' text-xs sm:text-base md:text-lg text-gray-300 flex justify-center rounded-full w-26 mb-1'>DIRECTORS</h1>
+          <span className='bg-gray-400 text-xs sm:text-base md:text-lg rounded-full px-1 py-0.5 md:px-2 md:py-1 text-gray-800'>{Details.Director}</span>
         </div>
 
         <div className='my-5'>
-          <h1 className=' text-lg text-gray-300 flex justify-center rounded-full w-15 mb-1'>CAST</h1>
+          <h1 className=' text-xs sm:text-base md:text-lg text-gray-300 flex justify-center rounded-full w-15 mb-1'>CAST</h1>
           {/* <span>{Details.Actors}</span> */}
           <div className='flex gap-2'>
             {Details.Actors?.map((a, i) => (
-              <span key={i} className='bg-gray-400 rounded-full px-2 py-1 text-gray-800'>{a}</span>
+              <span key={i} className= 'text-xs sm:text-base md:text-lg bg-gray-400 rounded-full px-1 py-0.5 md:px-2 md:py-1 text-gray-800'>{a}</span>
             ))}
           </div>
         </div>
 
         <div className='my-5'>
-          <h1 className='text-lg xs:text-sm sm:text-sm md:text-sm text-gray-300 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
-          <p>{Details.Plot}</p>
+          <h1 className='text-xs sm:text-base md:text-lg  text-gray-300 flex justify-center rounded-full w-25 mb-1'>SUMMARY</h1>
+          <p className='text-xs sm:text-base w-[400px] md:text-lg sm:w-[400px] md:w-[600px]'> {Details.Plot}</p>
         </div>
 
-        <div className='bg-red-300 font-bold rounded-full px-3 py-2 text-gray-700 w-48 mt-10 cursor-pointer'
+        <div className='bg-red-300 text-xs sm:text-base md:text-lg  font-bold rounded-full px-1 py-0.5 md:px-3 md:py-2 text-gray-700 w-30 md:w-48 mt-10 cursor-pointer'
           onClick={() => { naviagate(-1) }}
         >
           Back to All Movies
