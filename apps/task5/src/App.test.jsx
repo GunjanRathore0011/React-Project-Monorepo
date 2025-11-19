@@ -15,7 +15,6 @@ test("Form testing", () => {
     let fullName = screen.getByPlaceholderText('Enter full name')
     fireEvent.change(fullName, { target: { value: "Gunjan Rathore" } })
 
-
     let age = screen.getByPlaceholderText('Enter age')
     fireEvent.change(age, { target: { value: "20" } })
 
@@ -27,6 +26,5 @@ test("Form testing", () => {
     expect(details[0]).toHaveTextContent(userName.value);
     expect(details[1]).toHaveTextContent(fullName.value);
     expect(details[2]).toHaveTextContent(age.value);
-
 
 });

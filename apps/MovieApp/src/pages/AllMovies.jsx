@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 const AllMovies = () => {
 
   const likeM= useSelector((state)=>state.likes.likedMovies);
-  // console.log(likeM)
+  console.log(likeM)
 
   const [movies, setMovies] = useState([]);
   const [term, setTerm] = useState('Harry');
@@ -30,6 +30,9 @@ const AllMovies = () => {
       setLoading(false);
     }
   };
+
+
+  // console.log(movies);
 
   useEffect(() => {
     if (debouncedVal) apiCall(debouncedVal);
@@ -55,17 +58,19 @@ const AllMovies = () => {
             onClick={() => apiCall(term)}
           />
         </div>
-        <div className="flex items-center gap-6 text-3xl">
+        <div className="flex items-center gap-6 text-3xl" data-testid="click-icon">
           {likeM.length!==0 ? (
             <FaHeart
               className="text-pink-500 cursor-pointer hover:scale-110 transition-transform"
               title="Liked Movies"
+              data-testid="Liked-Movies"
               onClick={() => navigate('/favourite')}
             />
           ) : (
             <FaRegUserCircle
               className=""
               title="Profile / Favourites"
+              data-testid="Favourites"
             />
           )}
         </div>
@@ -85,7 +90,7 @@ const AllMovies = () => {
               </select>
             </div>
 
-            <div className="flex flex-wrap justify-center items-center gap-16 my-13">
+            <div className="flex flex-wrap justify-center items-center gap-16 my-13" >
               {movies.length ? (
                 movies.map((movie, idx) => <MovieCard key={idx} movie={movie} />)
               ) : (

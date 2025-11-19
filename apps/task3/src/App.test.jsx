@@ -37,4 +37,5 @@ test("Testing the add city", () => {
     expect(citiesAfterRender[0]).toHaveTextContent("Indore");
     expect(citiesAfterRender[1]).toHaveTextContent("Ratlam");
 
-}); 
+});
+
